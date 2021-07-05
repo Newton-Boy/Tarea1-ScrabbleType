@@ -1,17 +1,20 @@
 package TiposScrabble;
 
 /**
- * Clase TiposScrabble.StringScrabble es un TiposScrabble.Scrabble con un
+ * Clase StringScrabble es un Scrabble con un
  * parametro Tipo String
  */
-public class StringScrabble implements Scrabble{
+public class StringScrabble implements AddScrabble{
     private String String;
     public StringScrabble(String string){
         String=string;
     }
     /**
-     * Retorna el parametro de TiposScrabble.StringScrabble
+     * Retorna el parametro de StringScrabble
      */
+    public StringScrabble(){
+        String="";
+    }
     public String getString(){
         return String;
     }
@@ -48,7 +51,8 @@ public class StringScrabble implements Scrabble{
      * Suma que concatena los valores String de
      * los parametros de 2 TiposScrabble.Scrabble
      */
-    public StringScrabble SumaString(Scrabble SC){
+    @Override
+    public StringScrabble Suma(Scrabble SC){
         String S1=this.toString();
         String S2= SC.toString();
         return new StringScrabble(S1+S2);

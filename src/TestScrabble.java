@@ -1,6 +1,7 @@
 import TiposScrabble.*;
 import TiposScrabble.Number.Especial.BoolScrabble;
 import TiposScrabble.Number.Especial.BinaryScrabble;
+import TiposScrabble.Number.Especial.LogicScrabble;
 import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.Especial.IntScrabble;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +49,7 @@ class TestScrabble {
         assertEquals(expectBoolSc,bType);
 
         FloatScrabble expectFloatSc=new FloatScrabble(0.0);
-        expectFloatSc.setFloat(fType.getFloat());
+        expectFloatSc.setValue(fType.getFloat());
         assertEquals(expectFloatSc,fType);
         IntScrabble expectIntSc=new IntScrabble(0);
         expectIntSc.setInt(iType.getInt());
@@ -169,27 +170,27 @@ class TestScrabble {
     }
     @Test void SumaStringStringTest(){
         StringScrabble StringSc= new StringScrabble("Adios");
-        StringScrabble StringSum= sType.SumaString(StringSc);
+        StringScrabble StringSum= sType.Suma(StringSc);
         StringScrabble expected= new StringScrabble("HolaAdios");
         assertEquals(expected,StringSum);
     }
     @Test void SumaStringBoolTest(){
-        StringScrabble StringSum= sType.SumaString(bType);
+        StringScrabble StringSum= sType.Suma(bType);
         StringScrabble expected= new StringScrabble("Holatrue");
         assertEquals(expected,StringSum);
     }
     @Test void SumaStringFloatTest(){
-        StringScrabble StringSum= sType.SumaString(fType);
+        StringScrabble StringSum= sType.Suma(fType);
         StringScrabble expected= new StringScrabble("Hola2.4");
         assertEquals(expected,StringSum);
     }
     @Test void SumaStringIntTest(){
-        StringScrabble StringSum= sType.SumaString(iType);
+        StringScrabble StringSum= sType.Suma(iType);
         StringScrabble expected= new StringScrabble("Hola23");
         assertEquals(expected,StringSum);
     }
     @Test void SumaStringBinaryTest(){
-        StringScrabble StringSum= sType.SumaString(biType);
+        StringScrabble StringSum= sType.Suma(biType);
         StringScrabble expected= new StringScrabble("Hola00000010");
         assertEquals(expected,StringSum);
     }
@@ -322,28 +323,28 @@ class TestScrabble {
         BinaryScrabble expected= new BinaryScrabble("00101010");
         assertEquals(expected,Producto);
     }
-    @Test void DivisiónFloatFloatTes(){
+    @Test void DivisionFloatFloatTes(){
         FloatScrabble FloatSc= new FloatScrabble(3.2);
         FloatScrabble División =fType.División(FloatSc);
         FloatScrabble expected= new FloatScrabble(0.75);
         assertEquals(expected,División);
     }
-    @Test void DivisiónFloatIntTes(){
+    @Test void DivisionFloatIntTes(){
         FloatScrabble División =fType.División(iType);
         FloatScrabble expected= new FloatScrabble(0.1043);
         assertEquals(expected,División);
     }
-    @Test void DivisiónFloatBinaryTes(){
+    @Test void DivisionFloatBinaryTes(){
         FloatScrabble División =fType.División(biType);
         FloatScrabble expected= new FloatScrabble(1.2);
         assertEquals(expected,División);
     }
-    @Test void DivisiónIntFloatTes(){
+    @Test void DivisionIntFloatTes(){
         IntScrabble División =iType.División(fType);
         IntScrabble expected= new IntScrabble(10);
         assertEquals(expected,División);
     }
-    @Test void DivisiónIntIntTes(){
+    @Test void DivisionIntIntTes(){
         IntScrabble IntSc= new IntScrabble(3);
         IntScrabble División =iType.División(IntSc);
         IntScrabble expected= new IntScrabble(8);
@@ -381,9 +382,9 @@ class TestScrabble {
         BoolScrabble expectedTrue=new BoolScrabble(true);
         BoolScrabble False =new BoolScrabble(false);
         BoolScrabble trueAndFalse=bType.andBool(False);
-        BoolScrabble falseAndTrue=False.logicalAnd(bType);
-        BoolScrabble falseAndFalse=False.logicalAnd(False);
-        BoolScrabble trueAndTrue=bType.logicalAnd(bType);
+        LogicScrabble falseAndTrue=False.logicalAnd(bType);
+        LogicScrabble falseAndFalse=False.logicalAnd(False);
+        LogicScrabble trueAndTrue=bType.logicalAnd(bType);
         assertEquals(expectedFalse,trueAndFalse);
         assertEquals(expectedFalse,falseAndTrue);
         assertEquals(expectedFalse,falseAndFalse);
@@ -392,8 +393,8 @@ class TestScrabble {
     @Test void logicalAndBoolBinTest(){
         BinaryScrabble BinSc1 =new BinaryScrabble("01100101");
         BoolScrabble False=new BoolScrabble(false);
-        BinaryScrabble trueAndBin=  bType.logicalAnd(BinSc1);
-        BinaryScrabble falseAndBin= False.logicalAnd(BinSc1);
+        LogicScrabble trueAndBin=  bType.logicalAnd(BinSc1);
+        LogicScrabble falseAndBin= False.logicalAnd(BinSc1);
         BinaryScrabble expectedTrueBin=new BinaryScrabble("01100101");
         BinaryScrabble expectedFalseBin=new BinaryScrabble("11111111");
         assertEquals(expectedTrueBin,trueAndBin);
@@ -411,10 +412,10 @@ class TestScrabble {
         BoolScrabble expectedFalse=new BoolScrabble(false);
         BoolScrabble expectedTrue=new BoolScrabble(true);
         BoolScrabble False =new BoolScrabble(false);
-        BoolScrabble trueOrFalse= bType.logicalOr(False);
-        BoolScrabble falseOrTrue= False.logicalOr(bType);
-        BoolScrabble falseOrFalse= False.logicalOr(False);
-        BoolScrabble trueOrTrue= bType.logicalOr(bType);
+        LogicScrabble trueOrFalse= bType.logicalOr(False);
+        LogicScrabble falseOrTrue= False.logicalOr(bType);
+        LogicScrabble falseOrFalse= False.logicalOr(False);
+        LogicScrabble trueOrTrue= bType.logicalOr(bType);
         assertEquals(expectedTrue,trueOrFalse);
         assertEquals(expectedTrue,falseOrTrue);
         assertEquals(expectedFalse,falseOrFalse);
@@ -423,8 +424,8 @@ class TestScrabble {
     @Test void logicalOrBoolBinTest(){
         BinaryScrabble BinSc1 =new BinaryScrabble("01100101");
         BoolScrabble False=new BoolScrabble(false);
-        BinaryScrabble trueOrBin=  bType.logicalOr(BinSc1);
-        BinaryScrabble falseOrBin= False.logicalOr(BinSc1);
+        LogicScrabble trueOrBin=  bType.logicalOr(BinSc1);
+        LogicScrabble falseOrBin= False.logicalOr(BinSc1);
         BinaryScrabble expectedTrueBin=new BinaryScrabble("00000000");
         BinaryScrabble expectedFalseBin=new BinaryScrabble("01100101");
         assertEquals(expectedTrueBin,trueOrBin);

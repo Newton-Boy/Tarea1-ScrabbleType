@@ -1,13 +1,18 @@
 package TiposScrabble.Number;
 
+import TiposScrabble.AddScrabble;
+import TiposScrabble.Number.Especial.BinaryScrabble;
 import TiposScrabble.Number.Especial.IntScrabble;
 import TiposScrabble.Scrabble;
 
-public interface NumberScrabble extends Scrabble {
+public interface NumberScrabble extends AddScrabble {
     /**
      * Transforma un TiposScrabble.Scrabble a un TiposScrabble.Number.FloatScrabble
      */
     FloatScrabble toFloat();
+
+    BinaryScrabble toBinary();
+
     /**
      * Transforma un TiposScrabble.Number.NumberScrabble en su
      * opouesto aditivo
@@ -16,7 +21,8 @@ public interface NumberScrabble extends Scrabble {
     /**
      * Opera Suma aritmetica entre 2 TiposScrabble.Number.NumberScrabble
      */
-    NumberScrabble Suma(NumberScrabble Num);
+    @Override
+    NumberScrabble Suma(Scrabble Num);
     /**
      * Suma con prioridad en los Integers,
      * retorna el valor entero de una suma entre NumberScrabbles

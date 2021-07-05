@@ -15,9 +15,8 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     public BinaryScrabble(String binary){
         Bin=binary;
     }
-
     /**
-     * Retorna el parametro de TiposScrabble.Number.IntBinary.BinaryScrabble
+     * Retorna el parametro de BinaryScrabble
      */
     public String getBinary() {
         return Bin;
@@ -92,8 +91,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     public FloatScrabble toFloat() {
         String B=this.getBinary();
         int bit=this.toInt(B);
-        String S= String.valueOf(bit);
-        double Bit= Float.valueOf(S);
+        double Bit=bit/1.0;
         return new FloatScrabble(Bit);
     }
 
@@ -115,16 +113,16 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     @Override
-    public BinaryScrabble Opuesto() {
+    public IntBinaryScrabble Opuesto() {
         String Bina= this.getBinary();
         return new BinaryScrabble(this.twosComplement(Bina));
 
     }
 
-    public BinaryScrabble Suma(NumberScrabble Num) {
-        if(Num instanceof IntBinaryScrabble){
-            var newNum= (IntBinaryScrabble) Num;
-            return newNum.SumaBin(this);
+    public BinaryScrabble Suma(Scrabble Num) {
+        if(Num instanceof IntBinaryScrabble) {
+            IntBinaryScrabble num=(IntBinaryScrabble) Num;
+            return num.SumaBin(this);
         }
         return null;
     }
@@ -158,7 +156,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
 
     @Override
     public BinaryScrabble Resta(NumberScrabble Num) {
-        return this.Suma(Num.Opuesto());
+        return (BinaryScrabble) this.Suma(Num.Opuesto());
     }
 
     @Override
@@ -270,6 +268,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
      * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
      * Y Logica de un TiposScrabble.Number.IntBinary.LogicScrabble con este TiposScrabble.Number.IntBinary.BinaryScrabble
      */
+    @Override
     public BinaryScrabble logicalAnd(LogicScrabble logic){
         return logic.andBin(this);
     }

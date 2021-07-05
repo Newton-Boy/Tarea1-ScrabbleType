@@ -23,4 +23,8 @@ public interface LogicScrabble extends Scrabble {
      * Opera un O lógico en un TiposScrabble.Number.IntBinary.LogicScrabble con un TiposScrabble.Number.IntBinary.BinaryScrabble
      */
     BinaryScrabble orBin(BinaryScrabble binSc);
+
+    LogicScrabble logicalAnd(LogicScrabble logic);
+    LogicScrabble logicalOr(LogicScrabble logic);
+
 }

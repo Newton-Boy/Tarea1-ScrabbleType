@@ -70,7 +70,7 @@ public class BoolScrabble implements LogicScrabble {
      * Retorna un TiposScrabble.Number.IntBinary.BoolScrabble que es la operacion
      * Y Logica de un TiposScrabble.Number.IntBinary.BoolScrabble con este TiposScrabble.Number.IntBinary.BoolScrabble
      */
-    public BoolScrabble logicalAnd(BoolScrabble logic){
+    public BoolScrabble BoolLogicalAnd(BoolScrabble logic){
         return logic.andBool(this);
     }
     /**
@@ -78,8 +78,20 @@ public class BoolScrabble implements LogicScrabble {
      * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
      * Y Logica de un TiposScrabble.Number.IntBinary.BinaryScrabble con este TiposScrabble.Number.IntBinary.BoolScrabble
      */
-    public BinaryScrabble logicalAnd(BinaryScrabble logic){
+    public BinaryScrabble BinLogicalAnd(BinaryScrabble logic){
         return logic.andBool(this);
+    }
+
+    @Override
+    public LogicScrabble logicalAnd(LogicScrabble logic){
+        if(logic instanceof BoolScrabble){
+            BoolScrabble Logic=(BoolScrabble) logic;
+            return this.BoolLogicalAnd(Logic);
+        }
+        else {
+            BinaryScrabble Logic=(BinaryScrabble) logic;
+            return this.BinLogicalAnd(Logic);
+        }
     }
 
     @Override
@@ -101,20 +113,31 @@ public class BoolScrabble implements LogicScrabble {
         }
     }
     /**
-     * logicalOr, con parametro TiposScrabble.Number.IntBinary.BoolScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BoolScrabble que es la operacion
-     * O Logica de un TiposScrabble.Number.IntBinary.BoolScrabble con este TiposScrabble.Number.IntBinary.BoolScrabble
+     * logicalOr, con parametro BoolScrabble
+     * Retorna un BoolScrabble que es la operacion
+     * O Logica de un BoolScrabble con este BoolScrabble
      */
-    public BoolScrabble logicalOr(BoolScrabble logic){
+    public BoolScrabble BoolLogicalOr(BoolScrabble logic){
         return logic.orBool(this);
     }
     /**
-     * Overloading de logicalOr, con parametro TiposScrabble.Number.IntBinary.BinaryScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
-     * O Logica de un TiposScrabble.Number.IntBinary.BinaryScrabble con este TiposScrabble.Number.IntBinary.BoolScrabble
+     * Overloading de logicalOr, con parametro BinaryScrabble
+     * Retorna un BinaryScrabble que es la operacion
+     * O Logica de un BinaryScrabble con este BoolScrabble
      */
-    public BinaryScrabble logicalOr(BinaryScrabble logic){
+    public BinaryScrabble BinLogicalOr(BinaryScrabble logic){
         return logic.orBool(this);
+    }
+    @Override
+    public LogicScrabble logicalOr(LogicScrabble logic){
+        if(logic instanceof BoolScrabble){
+            BoolScrabble Logic=(BoolScrabble) logic;
+            return this.BoolLogicalOr(Logic);
+        }
+        else {
+            BinaryScrabble Logic=(BinaryScrabble) logic;
+            return this.BinLogicalOr(Logic);
+        }
     }
 
     @Override
