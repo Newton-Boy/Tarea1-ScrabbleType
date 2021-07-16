@@ -1,3 +1,4 @@
+/**
 import TiposScrabble.AddScrabble;
 import TiposScrabble.Number.Especial.BinaryScrabble;
 import TiposScrabble.Number.Especial.IntScrabble;
@@ -16,3 +17,4 @@ public class main {
         Ejemplo(Sc);
     }
 }
+ */

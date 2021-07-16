@@ -5,10 +5,10 @@ import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
 
 /**
- * Clase TiposScrabble.Number.IntBinary.BinaryScrabble es un TiposScrabble.Scrabble con un
+ * Clase BinaryScrabble es un Scrabble con un
  * parametro binario Tipo String
- * Además es un TiposScrabble.Number.NumberScrabble de valor binario
- * y un TiposScrabble.Number.IntBinary.LogicScrabble de valor binario
+ * Además es un IntBinaryScrabble de valor binario
+ * y un LogicScrabble de valor binario
  */
 public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     private String Bin;
@@ -23,16 +23,17 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     /**
-     * Cambia el parametro (String) binary de un
-     * TiposScrabble.Number.IntBinary.BinaryScrabble dado
+     * Cambia el parametro (String) binary de un BinaryScrabble dado
+     * @param binary
      */
     public void setBina(String binary) {
         Bin = binary;
     }
 
     /**
-     * Transforma un String binario de un
+     * Transforma un String binario de un BinaryScrabble
      * a su equivalente entero
+     * @param binary
      */
     public int toInt(String binary) {
         if (bitToInt(binary.charAt(0)) == 0) {
@@ -45,6 +46,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     /**
      * Transforma un String binario de un
      * a su equivalente entero negativo
+     * @param binary
      */
     private int negativeBinaryToInt(String binary) {
         int n = binary.length() - 1;
@@ -58,6 +60,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     /**
      * Transforma un String binario de un
      * a su equivalente entero positivo
+     * @param binary
      */
     private int positiveBinToInt(String binary) {
         int w = 0;
@@ -101,7 +104,8 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     /**
-     * Override del metodo equals para TiposScrabble.Number.IntBinary.BinaryScrabble
+     * Override del metodo equals para BinaryScrabble
+     * @param O
      */
     @Override
     public boolean equals(Object O){
@@ -264,9 +268,10 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     /**
-     * logicalAnd, con parametro TiposScrabble.Number.IntBinary.BinaryScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
-     * Y Logica de un TiposScrabble.Number.IntBinary.LogicScrabble con este TiposScrabble.Number.IntBinary.BinaryScrabble
+     * logicalAnd, con parametro BinaryScrabble
+     * Retorna un BinaryScrabble que es la operacion
+     * Y Logica de un LogicScrabble con este BinaryScrabble
+     * @param logic
      */
     @Override
     public BinaryScrabble logicalAnd(LogicScrabble logic){
@@ -290,10 +295,12 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
         return new BinaryScrabble(bin);
     }
     /**
-     * logicalOr, con parametro TiposScrabble.Number.IntBinary.BinaryScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
-     * O Logica de un TiposScrabble.Number.IntBinary.LogicScrabble con este TiposScrabble.Number.IntBinary.BinaryScrabble
+     * logicalOr, con parametro BinaryScrabble
+     * Retorna un BinaryScrabble que es la operacion
+     * O Logica de un LogicScrabble con este BinaryScrabble
+     * @param logic
      */
+    @Override
     public BinaryScrabble logicalOr(LogicScrabble logic){
         return logic.orBin(this);
     }

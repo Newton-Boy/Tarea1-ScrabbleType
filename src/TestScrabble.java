@@ -49,7 +49,7 @@ class TestScrabble {
         assertEquals(expectBoolSc,bType);
 
         FloatScrabble expectFloatSc=new FloatScrabble(0.0);
-        expectFloatSc.setValue(fType.getFloat());
+        expectFloatSc.setFloat(fType.getFloat());
         assertEquals(expectFloatSc,fType);
         IntScrabble expectIntSc=new IntScrabble(0);
         expectIntSc.setInt(iType.getInt());

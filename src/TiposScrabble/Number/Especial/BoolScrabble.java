@@ -3,9 +3,9 @@ package TiposScrabble.Number.Especial;
 import TiposScrabble.StringScrabble;
 
 /**
- * Clase TiposScrabble.Number.IntBinary.BoolScrabble es un TiposScrabble.Scrabble con un
+ * Clase BoolScrabble es un Scrabble con un
  * parametro Tipo boolean
- * Además es un TiposScrabble.Number.IntBinary.LogicScrabble de valor booleano
+ * Además es un LogicScrabble de valor booleano
  */
 public class BoolScrabble implements LogicScrabble {
     private boolean bool;
@@ -13,15 +13,15 @@ public class BoolScrabble implements LogicScrabble {
         bool=b;
     }
     /**
-     * Retorna el parametro de TiposScrabble.Number.IntBinary.BoolScrabble
+     * Retorna el parametro de BoolScrabble
      */
     public boolean getBool(){
         return bool;
     }
 
     /**
-     * Cambia el parametro boolean de un
-     * TiposScrabble.Number.IntBinary.BoolScrabble dado
+     * Cambia el parametro boolean de un BoolScrabble dado
+     * @param bool
      */
     public void setBool(boolean bool) {
         this.bool = bool;
@@ -32,7 +32,8 @@ public class BoolScrabble implements LogicScrabble {
         return String.valueOf(this.getBool());
     }
     /**
-     * Override del metodo equals para TiposScrabble.Number.IntBinary.BoolScrabble
+     * Override del metodo equals para BoolScrabble
+     * @param O
      */
     @Override
     public boolean equals(Object O){
@@ -50,7 +51,7 @@ public class BoolScrabble implements LogicScrabble {
     }
 
     /**
-     * Transforma un TiposScrabble.Number.IntBinary.BoolScrabble a un TiposScrabble.Number.IntBinary.BoolScrabble
+     * Transforma un BoolScrabble a un BoolScrabble
      */
     public BoolScrabble toBool() {
         return this;
@@ -66,17 +67,17 @@ public class BoolScrabble implements LogicScrabble {
         }
     }
     /**
-     * logicalAnd, con parametro TiposScrabble.Number.IntBinary.BoolScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BoolScrabble que es la operacion
-     * Y Logica de un TiposScrabble.Number.IntBinary.BoolScrabble con este TiposScrabble.Number.IntBinary.BoolScrabble
+     * logicalAnd, con parametro BoolScrabble
+     * Retorna un BoolScrabble que es la operacion
+     * Y Logica de un BoolScrabble con este BoolScrabble
      */
     public BoolScrabble BoolLogicalAnd(BoolScrabble logic){
         return logic.andBool(this);
     }
     /**
-     * Overloading de logicalAnd, con parametro TiposScrabble.Number.IntBinary.BinaryScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
-     * Y Logica de un TiposScrabble.Number.IntBinary.BinaryScrabble con este TiposScrabble.Number.IntBinary.BoolScrabble
+     * Overloading de logicalAnd, con parametro BinaryScrabble
+     * Retorna un BinaryScrabble que es la operacion
+     * Y Logica de un BinaryScrabble con este BoolScrabble
      */
     public BinaryScrabble BinLogicalAnd(BinaryScrabble logic){
         return logic.andBool(this);

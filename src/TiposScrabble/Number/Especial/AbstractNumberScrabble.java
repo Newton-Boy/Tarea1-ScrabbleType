@@ -4,26 +4,40 @@ import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
 import TiposScrabble.StringScrabble;
 
+/**
+ * Es la clase abstracta de la cual los Scrabble que manejan tipos numericos
+ * como parametros se redefiniran. (en particular binario es una excepción, pese a que usa string).
+ */
 public abstract class AbstractNumberScrabble implements NumberScrabble {
     private Number number;
     public AbstractNumberScrabble(Number num){
         this.number=num;
     }
+
+    /**
+     * Retorna el parametro del NumberScrabble
+     */
     public Number getValue(){
         return number;
     }
+
+    /**
+     * Redefine el parametro del NumberScrabble
+     * @param num
+     */
     public void setValue(Number num){
         number=num;
     }
-
+    @Override
     public String toString(){
         return String.valueOf(this.getValue());
     }
-
+    @Override
     public StringScrabble toStringSc(){
         String N=this.toString();
         return new StringScrabble(N);
     }
+    @Override
     public FloatScrabble toFloat() {
         double N=number.doubleValue();
         return new FloatScrabble(N);

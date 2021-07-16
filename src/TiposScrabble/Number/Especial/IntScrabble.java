@@ -6,9 +6,10 @@ import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
 
 /**
- * Clase TiposScrabble.Number.IntBinary.BoolScrabble es un TiposScrabble.Scrabble con un
+ * Clase IntScrabble es un Scrabble con un
  * parametro Tipo int
- * Además es un TiposScrabble.Number.NumberScrabble de valor entero
+ * Además es un IntBinaryScrabble de valor entero que
+ * extiende de AbstractNumberScrabble.
  */
 public class IntScrabble extends AbstractNumberScrabble implements IntBinaryScrabble {
     public IntScrabble(int i){
@@ -16,17 +17,21 @@ public class IntScrabble extends AbstractNumberScrabble implements IntBinaryScra
     }
 
     /**
-     * Retorna el parametro de TiposScrabble.Number.IntBinary.IntScrabble
+     * Retorna el parametro de IntScrabble
      */
     public int getInt() {
         return (int) this.getValue();
     }
 
+    /**
+     * Cambia el valor entero del IntScrabble
+     * @param num
+     */
     public void setInt(int num) {
         super.setValue(num);
     }
     /**
-     * Override del metodo equals para TiposScrabble.Number.IntBinary.IntScrabble
+     * Override del método equals para IntScrabble
      */
     @Override
     public boolean equals(Object O){
@@ -91,9 +96,7 @@ public class IntScrabble extends AbstractNumberScrabble implements IntBinaryScra
         return this.Producto(inverse);
     }
 
-    /**
-     * Transforma un entero a su valor binario
-     */
+    @Override
     public String IntToBinary(int I){
         int abs= Math.abs(I);
         String b= positiveIntToBinary(abs);

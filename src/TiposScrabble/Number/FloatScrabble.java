@@ -7,9 +7,10 @@ import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
 
 /**
- * Clase TiposScrabble.Number.FloatScrabble es un TiposScrabble.Scrabble con un
+ * Clase FloatScrabble es un Scrabble con un
  * parametro Tipo double
- * Además es un TiposScrabble.Number.NumberScrabble de valor double
+ * Además es un NumberScrabble de valor double que
+ * extiende de AbstractNumberScrabble.
  */
 public class FloatScrabble extends AbstractNumberScrabble {
     public FloatScrabble(double f){
@@ -17,14 +18,23 @@ public class FloatScrabble extends AbstractNumberScrabble {
     }
 
     /**
-     * Retorna el parametro de TiposScrabble.Number.FloatScrabble
+     * Retorna el parametro de FloatScrabble
      */
     public double getFloat() {
         return (double) this.getValue();
     }
 
     /**
-     * Override del metodo equals para TiposScrabble.Number.FloatScrabble
+     * Cambia el valor real (float) del FloatScrabble
+     * @param num
+     */
+    public void setFloat(double num) {
+        super.setValue(num);
+    }
+
+    /**
+     * Override del método equals para FloatScrabble
+     * @param O
      */
     @Override
     public boolean equals(Object O){
