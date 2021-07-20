@@ -1,3 +1,4 @@
+import Factories.*;
 import TiposScrabble.*;
 import TiposScrabble.Number.Especial.BoolScrabble;
 import TiposScrabble.Number.Especial.BinaryScrabble;
@@ -7,7 +8,7 @@ import TiposScrabble.Number.Especial.IntScrabble;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class TestScrabble {
@@ -25,6 +26,9 @@ class TestScrabble {
         iType= new IntScrabble(23);
         biType= new BinaryScrabble("00000010");
     }
+    /**
+     * Test de loa getters de las clases Scrabble
+     * */
     @Test void gettersTest(){
         String expectStr= "Hola";
         assertEquals(expectStr,sType.getString());
@@ -39,6 +43,9 @@ class TestScrabble {
         String expectBin="00000010";
         assertEquals(expectBin,biType.getBinary());
     }
+    /**
+     * Test de los Setters de las clases Scrabble
+     * */
     @Test void settersTest(){
         StringScrabble expectStrSc= new StringScrabble("");
         expectStrSc.setString(sType.getString());
@@ -59,31 +66,54 @@ class TestScrabble {
         expectBinSc.setBina(biType.getBinary());
         assertEquals(expectBinSc,biType);
     }
+    /**
+     * Este Test existe para asegurarme que pueda usarlo
+     * en los métodos con Strings Binarios
+     * */
     @Test void multiplyString(){
         String expected="0000";
         String Bi=new String(new char[4]).replace("\0", "0");
         assertEquals(expected,Bi);
     }
+    /**
+     * Test que comprueba sí el método logra pasar un entero positivo
+     * a un String binario
+     * */
     @Test void positiveIntToBinTest(){
         String b= iType.positiveIntToBinary(8);
         String expected ="00001000";
         assertEquals(expected,b);
     }
+    /**
+     * Test que prueba si, a partir de un String binario Complemento 1,
+     * el método devuelve un Complemento 2
+     * */
     @Test void  nowIsTwoComplementTest(){
         String B=iType.nowIsTwoComplement("1001");
         String expected="1010";
         assertEquals(expected,B);
     }
+    /**
+     *Test que prueba si el método Complement cambia los 0 por 1 y viceversa
+     * */
     @Test void  ComplementTest(){
         String b=iType.Complement("0110");
         String expected ="1001";
         assertEquals(expected,b);
     }
+    /**
+     * Test que prueba sí el método 2-Complemento retorna un String que es el
+     * Complemento 2 del String binario otorgado.
+     * */
     @Test void twosComplementTest(){
         String b= iType.twosComplement("0110");
         String expected ="1010";
         assertEquals(expected,b);
     }
+    /**
+     * Prueba que todos los parametros de los Scrabbles sean pasados
+     * a un Tipo Scrabble.
+     * */
     @Test
     void toStringTest(){
         String expectedS="Hola";
@@ -101,282 +131,329 @@ class TestScrabble {
         String expectedBi="00000010";
         assertEquals(expectedBi,biType.toString());
     }
-
+    /**
+     *Test que comprueba sí los distintos Scrabble pueden pasar
+     * a StringScrabble.
+     * */
     @Test
-    void TestStringScToStringSc(){
-        StringScrabble expected= sType.toStringSc();
-        assertEquals(expected,sType);
-    }
-    @Test void TestBoolToStringSc(){
-        StringScrabble expected=new StringScrabble("true");
+    void TestScrabbleToStringSc(){
+        StringScrabble expectedSSc= sType.toStringSc();
+        assertEquals(expectedSSc,sType);
+
+        StringScrabble expectedBSc=new StringScrabble("true");
         StringScrabble B= bType.toStringSc();
-        assertEquals(expected,B);
-    }
-    @Test void TestFloatToStringSc(){
-        StringScrabble expected=new StringScrabble("2.4");
+        assertEquals(expectedBSc,B);
+
+        StringScrabble expectedFSc=new StringScrabble("2.4");
         StringScrabble F= fType.toStringSc();
-        assertEquals(expected,F);
-    }
-    @Test void TestIntScToStringSc(){
-        StringScrabble expected=new StringScrabble("23");
+        assertEquals(expectedFSc,F);
+
+        StringScrabble expectedISc=new StringScrabble("23");
         StringScrabble I= iType.toStringSc();
-        assertEquals(expected,I);
-    }
-    @Test void TestBinaryToStringSc(){
-        StringScrabble expected=new StringScrabble("00000010");
+        assertEquals(expectedISc,I);
+
+        StringScrabble expectedBiSc=new StringScrabble("00000010");
         StringScrabble Bi= biType.toStringSc();
-        assertEquals(expected,Bi);
+        assertEquals(expectedBiSc,Bi);
     }
+    /**
+     * Prueba sí BoolScrabble puede pasar a un BoolScrabble
+     * */
     @Test void TestBoolToBool(){
         BoolScrabble expected= bType.toBool();
         assertEquals(expected,bType);
     }
-    @Test void TestFloatToFloat(){
-        FloatScrabble expected=  fType.toFloat();
-        assertEquals(expected,fType);
+    /**
+     *Test que comprueba sí los distintos NumberScrabble pueden pasar
+     * a FloatScrabble.
+     * */
+    @Test void TestNumberToFloat(){
+        FloatScrabble expectedFSc=  fType.toFloat();
+        assertEquals(expectedFSc,fType);
+
+        FloatScrabble expectedISc= new FloatScrabble(23.0);
+        FloatScrabble newFloatISc=  iType.toFloat();
+        assertEquals(expectedISc,newFloatISc);
+
+        FloatScrabble expectedBiSc= new FloatScrabble(2.0);
+        FloatScrabble newFloatBiSc= biType.toFloat();
+        assertEquals(expectedBiSc,newFloatBiSc);
     }
-    @Test void TestIntScToFloat(){
-        FloatScrabble expected= new FloatScrabble(23.0);
-        FloatScrabble newFloat=  iType.toFloat();
-        assertEquals(expected,newFloat);
-    }
-    @Test public void TestBinaryToFloat(){
-        FloatScrabble expected= new FloatScrabble(2.0);
-        FloatScrabble newFloat= biType.toFloat();
-        assertEquals(expected,newFloat);
-    }
-    @Test public void TestIntScToIntSc(){
-        IntScrabble expected= iType.toIntSc();
-        assertEquals(expected,iType);
-    }
-    @Test void TestBinaryToIntSc(){
-        IntScrabble expected= new IntScrabble(2);
+    /**
+     *Test que comprueba sí los IntBinaryScrabble pueden pasar
+     * a IntScrabble.
+     * */
+    @Test public void TestIntBinScToIntSc(){
+        IntScrabble expectedISc= iType.toIntSc();
+        assertEquals(expectedISc,iType);
+
+        IntScrabble expectedBiSc= new IntScrabble(2);
         IntScrabble newInt= biType.toIntSc();
-        assertEquals(expected,newInt);
+        assertEquals(expectedBiSc,newInt);
     }
+    /**
+     *Test que comprueba sí un Integer puede
+     * transformarse a un String binario.
+     * */
     @Test void TestIntToBinary() {
         String B = iType.IntToBinary(23);
         String expected = "00010111";
         assertEquals(expected, B);
     }
+    /**
+     *Test que comprueba sí los IntBinaryScrabble pueden pasar
+     * a BinaryScrabble.
+     * */
     @Test void TestIntScToBinary(){
-        BinaryScrabble expected= new BinaryScrabble("00010111");
+        BinaryScrabble expectedISc= new BinaryScrabble("00010111");
         BinaryScrabble newBinary= iType.toBinary();
-        assertEquals(expected,newBinary);
+        assertEquals(expectedISc,newBinary);
+
+        BinaryScrabble expectedBiSc= biType.toBinary();
+        assertEquals(expectedBiSc,biType);
     }
-    @Test void TestBinaryToBinary(){
-        BinaryScrabble expected= biType.toBinary();
-        assertEquals(expected,biType);
-    }
+    /**
+     *Test que prueba la concatenación StringScrabble
+     * */
     @Test void SumaStringStringTest(){
         StringScrabble StringSc= new StringScrabble("Adios");
-        StringScrabble StringSum= sType.Suma(StringSc);
-        StringScrabble expected= new StringScrabble("HolaAdios");
-        assertEquals(expected,StringSum);
+        StringScrabble StringSumS= sType.Suma(StringSc);
+        StringScrabble expectedSSc= new StringScrabble("HolaAdios");
+        assertEquals(expectedSSc,StringSumS);
+
+        StringScrabble StringSumB= sType.Suma(bType);
+        StringScrabble expectedB= new StringScrabble("Holatrue");
+        assertEquals(expectedB,StringSumB);
+
+        StringScrabble StringSumF= sType.Suma(fType);
+        StringScrabble expectedF= new StringScrabble("Hola2.4");
+        assertEquals(expectedF,StringSumF);
+
+        StringScrabble StringSumI= sType.Suma(iType);
+        StringScrabble expectedI= new StringScrabble("Hola23");
+        assertEquals(expectedI,StringSumI);
+
+        StringScrabble StringSumBi= sType.Suma(biType);
+        StringScrabble expectedBi= new StringScrabble("Hola00000010");
+        assertEquals(expectedBi,StringSumBi);
     }
-    @Test void SumaStringBoolTest(){
-        StringScrabble StringSum= sType.Suma(bType);
-        StringScrabble expected= new StringScrabble("Holatrue");
-        assertEquals(expected,StringSum);
-    }
-    @Test void SumaStringFloatTest(){
-        StringScrabble StringSum= sType.Suma(fType);
-        StringScrabble expected= new StringScrabble("Hola2.4");
-        assertEquals(expected,StringSum);
-    }
-    @Test void SumaStringIntTest(){
-        StringScrabble StringSum= sType.Suma(iType);
-        StringScrabble expected= new StringScrabble("Hola23");
-        assertEquals(expected,StringSum);
-    }
-    @Test void SumaStringBinaryTest(){
-        StringScrabble StringSum= sType.Suma(biType);
-        StringScrabble expected= new StringScrabble("Hola00000010");
-        assertEquals(expected,StringSum);
-    }
-    @Test void SumaFloatFloatTest(){
+    /**
+     *Test que prueba la suma FloatScrabble, con otro NumberScrabble
+     * */
+    @Test void SumaFloatNumTest(){
         FloatScrabble FloatSc = new FloatScrabble(5.1);
-        FloatScrabble FloatSum= fType.Suma(FloatSc);
-        FloatScrabble expected= new FloatScrabble(7.5);
-        assertEquals(expected,FloatSum);
+        FloatScrabble FloatSumF= fType.Suma(FloatSc);
+        FloatScrabble expectedF= new FloatScrabble(7.5);
+        assertEquals(expectedF,FloatSumF);
+
+        FloatScrabble FloatSumI= fType.Suma(iType);
+        FloatScrabble expectedI= new FloatScrabble(25.4);
+        assertEquals(expectedI,FloatSumI);
+
+        FloatScrabble FloatSumBi= fType.Suma(biType);
+        FloatScrabble expectedBi= new FloatScrabble(4.4);
+        assertEquals(expectedBi,FloatSumBi);
     }
-    @Test void SumaFloatIntTest(){
-        FloatScrabble FloatSum= fType.Suma(iType);
-        FloatScrabble expected= new FloatScrabble(25.4);
-        assertEquals(expected,FloatSum);
-    }
-    @Test void SumaFloatBinaryTest(){
-        FloatScrabble FloatSum= fType.Suma(biType);
-        FloatScrabble expected= new FloatScrabble(4.4);
-        assertEquals(expected,FloatSum);
-    }
-    @Test void SumaIntFloatTest(){
-        IntScrabble IntSum= iType.Suma(fType);
-        IntScrabble expected= new IntScrabble(25);
-        assertEquals(expected,IntSum);
-    }
-    @Test void SumaIntIntTest(){
+    /**
+     *Test que prueba la suma IntScrabble, con otro NumberScrabble
+     * */
+    @Test void SumaIntNumTest(){
+        IntScrabble IntSumF= iType.Suma(fType);
+        IntScrabble expectedF= new IntScrabble(25);
+        assertEquals(expectedF,IntSumF);
+
         IntScrabble IntSc = new IntScrabble(-7);
-        IntScrabble IntSum= iType.Suma(IntSc);
-        IntScrabble expected= new IntScrabble(16);
-        assertEquals(expected,IntSum);
+        IntScrabble IntSumI= iType.Suma(IntSc);
+        IntScrabble expectedI= new IntScrabble(16);
+        assertEquals(expectedI,IntSumI);
+
+        IntScrabble IntSumBi= iType.Suma(biType);
+        IntScrabble expectedBi= new IntScrabble(25);
+        assertEquals(expectedBi,IntSumBi);
     }
-    @Test void SumaIntBinaryTest(){
-        IntScrabble IntSum= iType.Suma(biType);
-        IntScrabble expected= new IntScrabble(25);
-        assertEquals(expected,IntSum);
-    }
-    @Test void SumaBinaryIntTest(){
-        BinaryScrabble BinarySum= biType.Suma(iType);
-        BinaryScrabble expected= new BinaryScrabble("00011001");
-        assertEquals(expected,BinarySum);
-    }
-    @Test void SumaBinaryBinaryTest(){
+    /**
+     * Test que prueba la suma BinaryScrabble
+     * con otro IntBinaryScrabble
+     * */
+    @Test void SumaBinaryIntBinTest(){
+        BinaryScrabble BinarySumI= biType.Suma(iType);
+        BinaryScrabble expectedI= new BinaryScrabble("00011001");
+        assertEquals(expectedI,BinarySumI);
+
         BinaryScrabble BinarySc = new BinaryScrabble("11111100");
-        BinaryScrabble BinarySum= biType.Suma(BinarySc);
-        BinaryScrabble expected= new BinaryScrabble("11111110");
-        assertEquals(expected,BinarySum);
+        BinaryScrabble BinarySumBi= biType.Suma(BinarySc);
+        BinaryScrabble expectedBi= new BinaryScrabble("11111110");
+        assertEquals(expectedBi,BinarySumBi);
     }
-    @Test void RestaFloatFloatTest(){
+    /**
+     * Test que prueba la resta FloatScrabble
+     * con otro NumberScrabble
+     * */
+    @Test void RestaFloatNumTest(){
         FloatScrabble FloatSc = new FloatScrabble(5.1);
-        FloatScrabble FloatSum= fType.Resta(FloatSc);
-        FloatScrabble expected= new FloatScrabble(-2.7);
-        assertEquals(expected,FloatSum);
+        FloatScrabble FloatSumF= fType.Resta(FloatSc);
+        FloatScrabble expectedF= new FloatScrabble(-2.7);
+        assertEquals(expectedF,FloatSumF);
+
+        FloatScrabble FloatSumI= fType.Resta(iType);
+        FloatScrabble expectedI= new FloatScrabble(-20.6);
+        assertEquals(expectedI,FloatSumI);
+
+        FloatScrabble FloatSumBi= fType.Resta(biType);
+        FloatScrabble expectedBi= new FloatScrabble(0.4);
+        assertEquals(expectedBi,FloatSumBi);
     }
-    @Test void RestaFloatIntTest(){
-        FloatScrabble FloatSum= fType.Resta(iType);
-        FloatScrabble expected= new FloatScrabble(-20.6);
-        assertEquals(expected,FloatSum);
-    }
-    @Test void RestaFloatBinaryTest(){
-        FloatScrabble FloatSum= fType.Resta(biType);
-        FloatScrabble expected= new FloatScrabble(0.4);
-        assertEquals(expected,FloatSum);
-    }
-    @Test void RestaIntFloatTest(){
-        IntScrabble IntSum= iType.Resta(fType);
-        IntScrabble expected= new IntScrabble(21);
-        assertEquals(expected,IntSum);
-    }
-    @Test void RestaIntIntTest(){
+    /**
+     * Test que prueba la resta IntScrabble
+     * con otro NumberScrabble
+     * */
+    @Test void RestaIntNumTest(){
+        IntScrabble IntSumF= iType.Resta(fType);
+        IntScrabble expectedF= new IntScrabble(21);
+        assertEquals(expectedF,IntSumF);
+
         IntScrabble IntSc = new IntScrabble(-7);
-        IntScrabble IntSum= iType.Resta(IntSc);
-        IntScrabble expected= new IntScrabble(30);
-        assertEquals(expected,IntSum);
+        IntScrabble IntSumI= iType.Resta(IntSc);
+        IntScrabble expectedI= new IntScrabble(30);
+        assertEquals(expectedI,IntSumI);
+
+        IntScrabble IntSumBi= iType.Resta(biType);
+        IntScrabble expectedBi= new IntScrabble(21);
+        assertEquals(expectedBi,IntSumBi);
     }
-    @Test void RestaIntBinaryTest(){
-        IntScrabble IntSum= iType.Resta(biType);
-        IntScrabble expected= new IntScrabble(21);
-        assertEquals(expected,IntSum);
-    }
-    @Test void RestaBinaryIntTest(){
-        BinaryScrabble BinarySum= biType.Resta(iType);
-        BinaryScrabble expected= new BinaryScrabble("11101011");
-        assertEquals(expected,BinarySum);
-    }
-    @Test void RestaBinaryBinaryTest(){
+    /**
+     * Test que prueba la resta BinaryScrabble
+     * con otro IntBinaryScrabble
+     * */
+    @Test void RestaBinaryIntBinTest(){
+        BinaryScrabble BinarySumI= biType.Resta(iType);
+        BinaryScrabble expectedI= new BinaryScrabble("11101011");
+        assertEquals(expectedI,BinarySumI);
+
         BinaryScrabble BinarySc = new BinaryScrabble("11111100");
-        BinaryScrabble BinarySum= biType.Resta(BinarySc);
-        BinaryScrabble expected= new BinaryScrabble("00000110");
-        assertEquals(expected,BinarySum);
+        BinaryScrabble BinarySumBi= biType.Resta(BinarySc);
+        BinaryScrabble expectedBi= new BinaryScrabble("00000110");
+        assertEquals(expectedBi,BinarySumBi);
     }
-    @Test void ProductoFloatFloatTes(){
+    /**
+     * Test que prueba el producto FloatScrabble
+     * con otro NumberScrabble
+     * */
+    @Test void ProductoFloatNumTes(){
         FloatScrabble FloatSc= new FloatScrabble(3.2);
-        FloatScrabble Producto =fType.Producto(FloatSc);
-        FloatScrabble expected= new FloatScrabble(7.68);
-        assertEquals(expected,Producto);
+        FloatScrabble ProductoF =fType.Producto(FloatSc);
+        FloatScrabble expectedF= new FloatScrabble(7.68);
+        assertEquals(expectedF,ProductoF);
+
+        FloatScrabble ProductoI =fType.Producto(iType);
+        FloatScrabble expectedI= new FloatScrabble(55.2);
+        assertEquals(expectedI,ProductoI);
+
+        FloatScrabble ProductoBi =fType.Producto(biType);
+        FloatScrabble expectedBi= new FloatScrabble(4.8);
+        assertEquals(expectedBi,ProductoBi);
     }
-    @Test void ProductoFloatIntTes(){
-        FloatScrabble Producto =fType.Producto(iType);
-        FloatScrabble expected= new FloatScrabble(55.2);
-        assertEquals(expected,Producto);
-    }
-    @Test void ProductoFloatBinaryTes(){
-        FloatScrabble Producto =fType.Producto(biType);
-        FloatScrabble expected= new FloatScrabble(4.8);
-        assertEquals(expected,Producto);
-    }
-    @Test void ProductoIntFloatTes(){
-        IntScrabble Producto =iType.Producto(fType);
-        IntScrabble expected= new IntScrabble(55);
-        assertEquals(expected,Producto);
-    }
-    @Test void ProductoIntIntTes(){
+    /**
+     * Test que prueba el producto IntScrabble
+     * con otro NumberScrabble
+     * */
+    @Test void ProductoIntNumTes(){
+        IntScrabble ProductoF =iType.Producto(fType);
+        IntScrabble expectedF= new IntScrabble(55);
+        assertEquals(expectedF,ProductoF);
+
         IntScrabble IntSc= new IntScrabble(3);
-        IntScrabble Producto =iType.Producto(IntSc);
-        IntScrabble expected= new IntScrabble(69);
-        assertEquals(expected,Producto);
+        IntScrabble ProductoI =iType.Producto(IntSc);
+        IntScrabble expectedI= new IntScrabble(69);
+        assertEquals(expectedI,ProductoI);
+
+        IntScrabble ProductoBi =iType.Producto(biType);
+        IntScrabble expectedBi= new IntScrabble(46);
+        assertEquals(expectedBi,ProductoBi);
     }
-    @Test void ProductoIntBinaryTes(){
-        IntScrabble Producto =iType.Producto(biType);
-        IntScrabble expected= new IntScrabble(46);
-        assertEquals(expected,Producto);
-    }
-    @Test void ProductoBinaryIntTes(){
-        BinaryScrabble Producto =biType.Producto(iType);
-        BinaryScrabble expected= new BinaryScrabble("00101110");
-        assertEquals(expected,Producto);
-    }
-    @Test void ProductoBinaryBinaryTes(){
+    /**
+     * Test que prueba el producto BinaryScrabble
+     * con otro IntBinaryScrabble
+     * */
+    @Test void ProductoBinaryIntBinTes(){
+        BinaryScrabble ProductoI =biType.Producto(iType);
+        BinaryScrabble expectedI= new BinaryScrabble("00101110");
+        assertEquals(expectedI,ProductoI);
+
         BinaryScrabble BinSc= new BinaryScrabble("00010101");
-        BinaryScrabble Producto =biType.Producto(BinSc);
-        BinaryScrabble expected= new BinaryScrabble("00101010");
-        assertEquals(expected,Producto);
+        BinaryScrabble ProductoBi =biType.Producto(BinSc);
+        BinaryScrabble expectedBi= new BinaryScrabble("00101010");
+        assertEquals(expectedBi,ProductoBi);
     }
-    @Test void DivisionFloatFloatTes(){
+    /**
+     * Test que prueba el división FloatScrabble
+     * con otro NumberScrabble
+     * */
+    @Test void DivisionFloatNumTes(){
         FloatScrabble FloatSc= new FloatScrabble(3.2);
-        FloatScrabble División =fType.División(FloatSc);
-        FloatScrabble expected= new FloatScrabble(0.75);
-        assertEquals(expected,División);
+        FloatScrabble DivisiónF =fType.División(FloatSc);
+        FloatScrabble expectedF= new FloatScrabble(0.75);
+        assertEquals(expectedF,DivisiónF);
+
+        FloatScrabble DivisiónI =fType.División(iType);
+        FloatScrabble expectedI= new FloatScrabble(0.1043);
+        assertEquals(expectedI,DivisiónI);
+
+        FloatScrabble DivisiónBi =fType.División(biType);
+        FloatScrabble expectedBi= new FloatScrabble(1.2);
+        assertEquals(expectedBi,DivisiónBi);
     }
-    @Test void DivisionFloatIntTes(){
-        FloatScrabble División =fType.División(iType);
-        FloatScrabble expected= new FloatScrabble(0.1043);
-        assertEquals(expected,División);
-    }
-    @Test void DivisionFloatBinaryTes(){
-        FloatScrabble División =fType.División(biType);
-        FloatScrabble expected= new FloatScrabble(1.2);
-        assertEquals(expected,División);
-    }
-    @Test void DivisionIntFloatTes(){
-        IntScrabble División =iType.División(fType);
-        IntScrabble expected= new IntScrabble(10);
-        assertEquals(expected,División);
-    }
-    @Test void DivisionIntIntTes(){
+    /**
+     * Test que prueba el división IntScrabble
+     * con otro NumberScrabble
+     * */
+    @Test void DivisionIntNumTes(){
+        IntScrabble DivisiónF =iType.División(fType);
+        IntScrabble expectedF= new IntScrabble(10);
+        assertEquals(expectedF,DivisiónF);
+
         IntScrabble IntSc= new IntScrabble(3);
-        IntScrabble División =iType.División(IntSc);
-        IntScrabble expected= new IntScrabble(8);
-        assertEquals(expected,División);
+        IntScrabble DivisiónI =iType.División(IntSc);
+        IntScrabble expectedI= new IntScrabble(8);
+        assertEquals(expectedI,DivisiónI);
+
+        IntScrabble DivisiónBi =iType.División(biType);
+        IntScrabble expectedBi= new IntScrabble(12);
+        assertEquals(expectedBi,DivisiónBi);
     }
-    @Test void DivisiónIntBinaryTes(){
-        IntScrabble División =iType.División(biType);
-        IntScrabble expected= new IntScrabble(12);
-        assertEquals(expected,División);
-    }
-    @Test void DivisiónBinaryIntTes(){
-        BinaryScrabble División =biType.División(iType);
-        BinaryScrabble expected= new BinaryScrabble("00000000");
-        assertEquals(expected,División);
-    }
-    @Test void DivisiónBinaryBinaryTes(){
+    /**
+     * Test que prueba el división BinaryScrabble
+     * con otro IntBinaryScrabble
+     * */
+    @Test void DivisiónBinaryIntBinTes(){
+        BinaryScrabble DivisiónI =biType.División(iType);
+        BinaryScrabble expectedI= new BinaryScrabble("00000000");
+        assertEquals(expectedI,DivisiónI);
+
         BinaryScrabble BinSc= new BinaryScrabble("00010101");
-        BinaryScrabble División =BinSc.División(biType);
-        BinaryScrabble expected= new BinaryScrabble("00001011");
-        assertEquals(expected,División);
+        BinaryScrabble DivisiónBi =BinSc.División(biType);
+        BinaryScrabble expectedBi= new BinaryScrabble("00001011");
+        assertEquals(expectedBi,DivisiónBi);
     }
+    /**
+     * Test que prueba la negación lógica para un BoolScrabble
+     * */
     @Test void NegaciónLogicaBoolTest(){
         BoolScrabble NegaBool=bType.Negación();
         BoolScrabble expected=new BoolScrabble(false);
         assertEquals(expected,NegaBool);
     }
+    /**
+     * Test que prueba la negación lógica para un BinaryScrabble
+     * */
     @Test void NegaciónLogicaBinaryTest(){
         BinaryScrabble NegaBin=biType.Negación();
         BinaryScrabble expected=new BinaryScrabble("11111101");
         assertEquals(expected,NegaBin);
     }
-
+    /**
+     * Test que prueba el Y lógico para un BoolScrabble con otro
+     * */
     @Test void logicalBoolAndBoolTest(){
         BoolScrabble expectedFalse=new BoolScrabble(false);
         BoolScrabble expectedTrue=new BoolScrabble(true);
@@ -390,6 +467,9 @@ class TestScrabble {
         assertEquals(expectedFalse,falseAndFalse);
         assertEquals(expectedTrue,trueAndTrue);
     }
+    /**
+     * Test que prueba el Y lógico para un BoolScrabble y un BinaryScrabble
+     * */
     @Test void logicalAndBoolBinTest(){
         BinaryScrabble BinSc1 =new BinaryScrabble("01100101");
         BoolScrabble False=new BoolScrabble(false);
@@ -400,6 +480,9 @@ class TestScrabble {
         assertEquals(expectedTrueBin,trueAndBin);
         assertEquals(expectedFalseBin,falseAndBin);
     }
+    /**
+     * Test que prueba el Y lógico para un BinaryScrabble con otro
+     * */
     @Test void logicalAndBinBinTest(){
         BinaryScrabble BinSc1 =new BinaryScrabble("01100101");
         BinaryScrabble BinSc2 =new BinaryScrabble("01001101");
@@ -407,7 +490,9 @@ class TestScrabble {
         BinaryScrabble expected=new BinaryScrabble("01101101");
         assertEquals(expected,LogicBin);
     }
-
+    /**
+     * Test que prueba el O lógico para un BoolScrabble con otro
+     * */
     @Test void logicalOrBoolBoolTest(){
         BoolScrabble expectedFalse=new BoolScrabble(false);
         BoolScrabble expectedTrue=new BoolScrabble(true);
@@ -421,6 +506,9 @@ class TestScrabble {
         assertEquals(expectedFalse,falseOrFalse);
         assertEquals(expectedTrue,trueOrTrue);
     }
+    /**
+     * Test que prueba el O lógico para un BoolScrabble y un BinaryScrabble
+     * */
     @Test void logicalOrBoolBinTest(){
         BinaryScrabble BinSc1 =new BinaryScrabble("01100101");
         BoolScrabble False=new BoolScrabble(false);
@@ -431,11 +519,59 @@ class TestScrabble {
         assertEquals(expectedTrueBin,trueOrBin);
         assertEquals(expectedFalseBin,falseOrBin);
     }
+    /**
+     * Test que prueba el O lógico para un BinaryScrabble con otro
+     * */
     @Test void logicalOrBinBinTest(){
         BinaryScrabble BinSc1 =new BinaryScrabble("01100101");
         BinaryScrabble BinSc2 =new BinaryScrabble("01001101");
         BinaryScrabble LogicBin=BinSc1.logicalOr(BinSc2);
         BinaryScrabble expected=new BinaryScrabble("01000101");
         assertEquals(expected,LogicBin);
+    }
+    /**
+     * Test que prueba el Patron Flyweigth para las
+     * distintas clases Scrabble
+     * */
+    @Test public void FlyweigthTest(){
+        StringScrabbleFactory SScF=new StringScrabbleFactory();
+        StringScrabble SSc1=SScF.getScrabble("Hola");
+        StringScrabble SSc2=SScF.getScrabble("Hola");
+        assertEquals(SSc1,SSc2);
+        assertEquals(SSc1,sType);
+        assertTrue(SSc1==SSc2);
+        assertFalse(SSc1==sType);
+
+        BoolScrabbleFactory BScF=new BoolScrabbleFactory();
+        BoolScrabble BSc1=BScF.getScrabble(true);
+        BoolScrabble BSc2=BScF.getScrabble(true);
+        assertEquals(BSc1,BSc2);
+        assertEquals(BSc1,bType);
+        assertTrue(BSc1==BSc2);
+        assertFalse(BSc1==bType);
+
+        FloatScrabbleFactory FScF=new FloatScrabbleFactory();
+        FloatScrabble FSc1=FScF.getScrabble(2.4);
+        FloatScrabble FSc2=FScF.getScrabble(2.4);
+        assertEquals(FSc1,FSc2);
+        assertEquals(FSc1,fType);
+        assertTrue(FSc1==FSc2);
+        assertFalse(FSc1==fType);
+
+        IntScrabbleFactory IScF=new IntScrabbleFactory();
+        IntScrabble ISc1=IScF.getScrabble(23);
+        IntScrabble ISc2=IScF.getScrabble(23);
+        assertEquals(ISc1,ISc2);
+        assertEquals(ISc1,iType);
+        assertTrue(ISc1==ISc2);
+        assertFalse(ISc1==iType);
+
+        BinaryScrabbleFactory BiScF=new BinaryScrabbleFactory();
+        BinaryScrabble BiSc1=BiScF.getScrabble("00000010");
+        BinaryScrabble BiSc2=BiScF.getScrabble("00000010");
+        assertEquals(BiSc1,BiSc2);
+        assertEquals(BiSc1,biType);
+        assertTrue(BiSc1==BiSc2);
+        assertFalse(BiSc1==biType);
     }
 }

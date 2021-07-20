@@ -5,7 +5,9 @@ import TiposScrabble.Number.Especial.BinaryScrabble;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
-
+/**
+ * Fabrica Flyweigth de BinaryScrabble.
+ * */
 public class BinaryScrabbleFactory {
     private Hashtable<List<String>, BinaryScrabble> hashtable=new Hashtable<>();
 

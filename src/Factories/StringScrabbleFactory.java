@@ -1,17 +1,17 @@
 package Factories;
 
-import Factories.ScrabbleFactory;
-import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
 
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
-
-public class StringScrabbleFactory implements ScrabbleFactory{
+/**
+ * Fabrica Flyweigth de StringScrabble.
+ * */
+public class StringScrabbleFactory {
     private Hashtable<List<String>,StringScrabble> hashtable=new Hashtable<>();
 
-    public StringScrabble createScrabble(String string) {
+    public StringScrabble getScrabble(String string) {
         String[] array= {string};
         List<String> key = Arrays.asList(array);
         StringScrabble Str = hashtable.get(key);
@@ -22,10 +22,5 @@ public class StringScrabbleFactory implements ScrabbleFactory{
             hashtable.put(key, Str);
         }
         return Str;
-    }
-
-    @Override
-    public List<Scrabble> createScrabble() {
-        return null;
     }
 }
