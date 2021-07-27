@@ -1,84 +1,69 @@
 package TiposScrabble.Number;
 
+import TiposScrabble.Number.Especial.AbstractNumberScrabble;
+import TiposScrabble.Number.Especial.BinaryScrabble;
 import TiposScrabble.Number.Especial.IntScrabble;
+import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
+import Visitors.visitOperador;
 
 /**
- * Clase TiposScrabble.Number.FloatScrabble es un TiposScrabble.Scrabble con un
+ * Clase FloatScrabble es un Scrabble con un
  * parametro Tipo double
- * Además es un TiposScrabble.Number.NumberScrabble de valor double
+ * Además es un NumberScrabble de valor double que
+ * extiende de AbstractNumberScrabble.
  */
-public class FloatScrabble implements NumberScrabble {
-    private double Float;
+public class FloatScrabble extends AbstractNumberScrabble {
     public FloatScrabble(double f){
-        Float=f;
+        super(f);
     }
 
     /**
-     * Retorna el parametro de TiposScrabble.Number.FloatScrabble
+     * Retorna el parametro de FloatScrabble
      */
     public double getFloat() {
-        return Float;
+        return (double) this.getValue();
     }
 
     /**
-     * Cambia el parametro double de un
-     * TiposScrabble.Number.FloatScrabble dado
+     * Cambia el valor real (float) del FloatScrabble
+     * @param num
      */
-    public void setFloat(double aFloat) {
-        Float = aFloat;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(this.getFloat());
+    public void setFloat(double num) {
+        super.setValue(num);
     }
 
     /**
-     * Override del metodo equals para TiposScrabble.Number.FloatScrabble
+     * Override del método equals para FloatScrabble
+     * @param O
      */
     @Override
     public boolean equals(Object O){
         if(O instanceof FloatScrabble){
             var Sc= (FloatScrabble) O;
-            return Sc.Float-Float<=0.001 && Sc.Float-Float>=-0.001;
+            return Sc.getFloat()-this.getFloat()<=0.001 && Sc.getFloat()-this.getFloat()>=-0.001;
         }
         return false;
     }
 
     @Override
-    public StringScrabble toStringSc() {
-        String F=this.toString();
-        return new StringScrabble(F);
-    }
-
-    @Override
-    public FloatScrabble toFloat() {
-        return this;
+    public BinaryScrabble toBinary() {
+        return null;
     }
 
     @Override
     public FloatScrabble Opuesto() {
-        return new FloatScrabble(-this.getFloat());
+        double F=this.getFloat();
+        return new FloatScrabble(-F);
     }
 
     @Override
-    public FloatScrabble Suma(NumberScrabble Num) {
-        return Num.SumaFloat(this);
-    }
-    @Override
-    public IntScrabble SumaInt(IntScrabble IntSc) {
-        FloatScrabble FloatSc=this.toFloat();
-        int I1=IntSc.getInt();
-        int I2= (int) FloatSc.getFloat();
-        return new IntScrabble(I1+I2);
-    }
-
-    @Override
-    public FloatScrabble SumaFloat(FloatScrabble FloatSc) {
-        double F1=FloatSc.getFloat();
-        double F2= this.getFloat();
-        return new FloatScrabble(F1+F2);
+    public FloatScrabble Suma(Scrabble Num) {
+        if(Num instanceof NumberScrabble){
+            NumberScrabble num=(NumberScrabble) Num;
+            return num.SumaFloat(this);
+        }
+        return null;
     }
 
     @Override
@@ -90,27 +75,14 @@ public class FloatScrabble implements NumberScrabble {
     public FloatScrabble Producto(NumberScrabble Num) {
         return Num.ProductoFloat(this);
     }
-
-    @Override
-    public IntScrabble ProductoInt(IntScrabble IntSc) {
-        FloatScrabble IntScToFloatSc= IntSc.toFloat();
-        FloatScrabble floatProducto= this.ProductoFloat(IntScToFloatSc);
-        double round= Math.round(floatProducto.getFloat());
-        int IntProducto= (int) round;
-        return new IntScrabble(IntProducto);
-    }
-
-    @Override
-    public FloatScrabble ProductoFloat(FloatScrabble FloatSc) {
-        return new FloatScrabble(this.getFloat()*FloatSc.getFloat());
-    }
-
-    public FloatScrabble Inverso() {
-        return new FloatScrabble(1.0/this.getFloat());
-    }
     @Override
     public FloatScrabble División(NumberScrabble Num) {
-        FloatScrabble inverso= Num.Inverso();
-        return this.Producto(inverso);
+        FloatScrabble inverse= Num.Inverso();
+        return this.Producto(inverse);
+    }
+
+    @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitFloatScrabble(this, Sc);
     }
 }

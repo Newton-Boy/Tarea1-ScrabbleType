@@ -2,53 +2,45 @@ package TiposScrabble.Number.Especial;
 
 import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
+import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
+import Visitors.visitOperador;
 
 /**
- * Clase TiposScrabble.Number.IntBinary.BoolScrabble es un TiposScrabble.Scrabble con un
+ * Clase IntScrabble es un Scrabble con un
  * parametro Tipo int
- * Además es un TiposScrabble.Number.NumberScrabble de valor entero
+ * Además es un IntBinaryScrabble de valor entero que
+ * extiende de AbstractNumberScrabble.
  */
-public class IntScrabble implements IntBinaryScrabble {
-    private int Int;
+public class IntScrabble extends AbstractNumberScrabble implements IntBinaryScrabble {
     public IntScrabble(int i){
-        Int=i;
+        super(i);
     }
+
     /**
-     * Retorna el parametro de TiposScrabble.Number.IntBinary.IntScrabble
+     * Retorna el parametro de IntScrabble
      */
     public int getInt() {
-        return Int;
+        return (int) this.getValue();
     }
 
     /**
-     * Cambia el parametro Integer de un
-     * TiposScrabble.Number.IntBinary.IntScrabble dado
+     * Cambia el valor entero del IntScrabble
+     * @param num
      */
-    public void setInt(int anInt) {
-        Int = anInt;
+    public void setInt(int num) {
+        super.setValue(num);
     }
-
     /**
-     * Override del metodo equals para TiposScrabble.Number.IntBinary.IntScrabble
+     * Override del método equals para IntScrabble
      */
     @Override
     public boolean equals(Object O){
         if(O instanceof IntScrabble){
             var Sc= (IntScrabble) O;
-            return Sc.Int==Int;
+            return Sc.getValue()==this.getValue();
         }
         return false;
-    }
-    @Override
-    public String toString() {
-        return String.valueOf(this.getInt());
-    }
-
-    @Override
-    public StringScrabble toStringSc() {
-        String I=this.toString();
-        return new StringScrabble(I);
     }
     @Override
     public IntScrabble toIntSc() {
@@ -56,36 +48,19 @@ public class IntScrabble implements IntBinaryScrabble {
     }
 
     @Override
-    public FloatScrabble toFloat() {
-        String I=this.toString();
-        double iToF= Float.valueOf(I);
-        return new FloatScrabble(iToF);
+    public IntBinaryScrabble Opuesto() {
+        int N= this.getInt();
+        return new IntScrabble(-N);
+
     }
 
     @Override
-    public IntScrabble Opuesto() {
-        return new IntScrabble(-this.getInt());
-    }
-
-    @Override
-    public IntScrabble Suma(NumberScrabble Num) {
-        return Num.SumaInt(this);
-    }
-
-    @Override
-    public IntScrabble SumaInt(IntScrabble IntSc) {
-        FloatScrabble FloatSc=this.toFloat();
-        int I1=IntSc.getInt();
-        int I2= (int) FloatSc.getFloat();
-        return new IntScrabble(I1+I2);
-    }
-
-    @Override
-    public FloatScrabble SumaFloat(FloatScrabble FloatSc) {
-        FloatScrabble Num= this.toFloat();
-        double F1=FloatSc.getFloat();
-        double F2= Num.getFloat();
-        return new FloatScrabble(F1+F2);
+    public IntScrabble Suma(Scrabble Num) {
+        if(Num instanceof  NumberScrabble) {
+            NumberScrabble num=(NumberScrabble) Num;
+            return num.SumaInt(this);
+        }
+        return null;
     }
 
     @Override
@@ -108,17 +83,6 @@ public class IntScrabble implements IntBinaryScrabble {
     }
 
     @Override
-    public IntScrabble ProductoInt(IntScrabble IntSc) {
-        return new IntScrabble(this.getInt()*IntSc.getInt());
-    }
-
-    @Override
-    public FloatScrabble ProductoFloat(FloatScrabble FloatSc) {
-        double producto= this.getInt()*FloatSc.getFloat();
-        return new FloatScrabble(producto);
-    }
-
-    @Override
     public BinaryScrabble ProductoBin(BinaryScrabble BinSc) {
         String Bi= BinSc.getBinary();
         int IntB1= this.getInt();
@@ -128,20 +92,12 @@ public class IntScrabble implements IntBinaryScrabble {
     }
 
     @Override
-    public FloatScrabble Inverso() {
-        FloatScrabble dino= this.toFloat();
-        return dino.Inverso();
+    public IntScrabble División(NumberScrabble Num) {
+        FloatScrabble inverse= Num.Inverso();
+        return this.Producto(inverse);
     }
 
     @Override
-    public IntScrabble División(NumberScrabble Num) {
-        FloatScrabble floatNum= Num.Inverso();
-        return this.Producto(floatNum);
-    }
-
-    /**
-     * Transforma un entero a su valor binario
-     */
     public String IntToBinary(int I){
         int abs= Math.abs(I);
         String b= positiveIntToBinary(abs);
@@ -155,7 +111,7 @@ public class IntScrabble implements IntBinaryScrabble {
 
     @Override
     public BinaryScrabble toBinary() {
-        String b=IntToBinary(Int);
+        String b=IntToBinary(this.getInt());
         return new BinaryScrabble(b);
     }
     @Override
@@ -195,5 +151,10 @@ public class IntScrabble implements IntBinaryScrabble {
     public String twosComplement(String b){
         String bComplement= Complement(b);
         return nowIsTwoComplement(bComplement);
+    }
+
+    @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitIntScrabble(this, Sc);
     }
 }

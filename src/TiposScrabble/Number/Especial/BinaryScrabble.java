@@ -3,37 +3,38 @@ package TiposScrabble.Number.Especial;
 import TiposScrabble.*;
 import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
+import Visitors.visitOperador;
 
 /**
- * Clase TiposScrabble.Number.IntBinary.BinaryScrabble es un TiposScrabble.Scrabble con un
+ * Clase BinaryScrabble es un Scrabble con un
  * parametro binario Tipo String
- * Además es un TiposScrabble.Number.NumberScrabble de valor binario
- * y un TiposScrabble.Number.IntBinary.LogicScrabble de valor binario
+ * Además es un IntBinaryScrabble de valor binario
+ * y un LogicScrabble de valor binario
  */
 public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     private String Bin;
     public BinaryScrabble(String binary){
         Bin=binary;
     }
-
     /**
-     * Retorna el parametro de TiposScrabble.Number.IntBinary.BinaryScrabble
+     * Retorna el parametro de BinaryScrabble
      */
     public String getBinary() {
         return Bin;
     }
 
     /**
-     * Cambia el parametro (String) binary de un
-     * TiposScrabble.Number.IntBinary.BinaryScrabble dado
+     * Cambia el parametro (String) binary de un BinaryScrabble dado
+     * @param binary
      */
     public void setBina(String binary) {
         Bin = binary;
     }
 
     /**
-     * Transforma un String binario de un
+     * Transforma un String binario de un BinaryScrabble
      * a su equivalente entero
+     * @param binary
      */
     public int toInt(String binary) {
         if (bitToInt(binary.charAt(0)) == 0) {
@@ -46,6 +47,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     /**
      * Transforma un String binario de un
      * a su equivalente entero negativo
+     * @param binary
      */
     private int negativeBinaryToInt(String binary) {
         int n = binary.length() - 1;
@@ -59,6 +61,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     /**
      * Transforma un String binario de un
      * a su equivalente entero positivo
+     * @param binary
      */
     private int positiveBinToInt(String binary) {
         int w = 0;
@@ -77,6 +80,11 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitBinaryScrabble(this, Sc);
+    }
+
+    @Override
     public StringScrabble toStringSc() {
         return new StringScrabble(Bin);
     }
@@ -89,11 +97,16 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     @Override
+    public Number getValue() {
+        IntScrabble Int=this.toIntSc();
+        return Int.getValue();
+    }
+
+    @Override
     public FloatScrabble toFloat() {
         String B=this.getBinary();
         int bit=this.toInt(B);
-        String S= String.valueOf(bit);
-        double Bit= Float.valueOf(S);
+        double Bit=bit/1.0;
         return new FloatScrabble(Bit);
     }
 
@@ -103,7 +116,8 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     /**
-     * Override del metodo equals para TiposScrabble.Number.IntBinary.BinaryScrabble
+     * Override del metodo equals para BinaryScrabble
+     * @param O
      */
     @Override
     public boolean equals(Object O){
@@ -115,16 +129,16 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     @Override
-    public BinaryScrabble Opuesto() {
+    public IntBinaryScrabble Opuesto() {
         String Bina= this.getBinary();
         return new BinaryScrabble(this.twosComplement(Bina));
 
     }
 
-    public BinaryScrabble Suma(NumberScrabble Num) {
-        if(Num instanceof IntBinaryScrabble){
-            var newNum= (IntBinaryScrabble) Num;
-            return newNum.SumaBin(this);
+    public BinaryScrabble Suma(Scrabble Num) {
+        if(Num instanceof IntBinaryScrabble) {
+            IntBinaryScrabble num=(IntBinaryScrabble) Num;
+            return num.SumaBin(this);
         }
         return null;
     }
@@ -158,7 +172,7 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
 
     @Override
     public BinaryScrabble Resta(NumberScrabble Num) {
-        return this.Suma(Num.Opuesto());
+        return (BinaryScrabble) this.Suma(Num.Opuesto());
     }
 
     @Override
@@ -266,10 +280,12 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     /**
-     * logicalAnd, con parametro TiposScrabble.Number.IntBinary.BinaryScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
-     * Y Logica de un TiposScrabble.Number.IntBinary.LogicScrabble con este TiposScrabble.Number.IntBinary.BinaryScrabble
+     * logicalAnd, con parametro BinaryScrabble
+     * Retorna un BinaryScrabble que es la operacion
+     * Y Logica de un LogicScrabble con este BinaryScrabble
+     * @param logic
      */
+    @Override
     public BinaryScrabble logicalAnd(LogicScrabble logic){
         return logic.andBin(this);
     }
@@ -291,10 +307,12 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
         return new BinaryScrabble(bin);
     }
     /**
-     * logicalOr, con parametro TiposScrabble.Number.IntBinary.BinaryScrabble
-     * Retorna un TiposScrabble.Number.IntBinary.BinaryScrabble que es la operacion
-     * O Logica de un TiposScrabble.Number.IntBinary.LogicScrabble con este TiposScrabble.Number.IntBinary.BinaryScrabble
+     * logicalOr, con parametro BinaryScrabble
+     * Retorna un BinaryScrabble que es la operacion
+     * O Logica de un LogicScrabble con este BinaryScrabble
+     * @param logic
      */
+    @Override
     public BinaryScrabble logicalOr(LogicScrabble logic){
         return logic.orBin(this);
     }
