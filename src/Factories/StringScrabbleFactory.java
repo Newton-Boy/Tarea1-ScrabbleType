@@ -1,6 +1,10 @@
 package Factories;
 
+import TiposScrabble.Number.Especial.LogicScrabble;
+import TiposScrabble.Number.NumberScrabble;
+import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
+import jdk.dynalink.Operation;
 
 import java.util.Arrays;
 import java.util.Hashtable;

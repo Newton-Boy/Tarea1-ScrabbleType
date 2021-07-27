@@ -6,6 +6,7 @@ import TiposScrabble.Number.Especial.IntScrabble;
 import TiposScrabble.Scrabble;
 
 public interface NumberScrabble extends AddScrabble {
+    Number getValue();
     /**
      * Transforma un NumberScrabble a un FloatScrabble
      */

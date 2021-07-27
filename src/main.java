@@ -7,6 +7,8 @@ import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
 import TiposScrabble.Scrabble;
 
+import java.util.ArrayList;
+
 public class main {
     /**
      * Dado una seríe de operaciones, que retornan un Scrabble. Imprime el resultado.
@@ -95,6 +97,21 @@ public class main {
             return null;
         }
     }
+    public ArrayList<Scrabble> If(boolean Cond,ArrayList<Scrabble> ifTrue, ArrayList<Scrabble> ifFalse){
+        if(Cond==true){
+            return ifTrue;
+        }
+        else{
+            return ifFalse;
+        }
+    }
+    /**
+    public ArrayList<Scrabble> While(boolean Cond, ArrayList<Scrabble> whileTrue){
+        while(Cond==true){
+            
+        }
+    }
+     */
     public static void main(String[] args){
         /*Aquí cabe destacar que el ejemplo original carece de sentido al final, pues un Scrabble binario,
         * operarse de izquierda a derecha con un FloatScrabble, por ello se ha cambiado respecto

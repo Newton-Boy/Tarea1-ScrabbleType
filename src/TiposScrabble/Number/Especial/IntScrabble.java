@@ -4,6 +4,7 @@ import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
 import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
+import Visitors.visitOperador;
 
 /**
  * Clase IntScrabble es un Scrabble con un
@@ -150,5 +151,10 @@ public class IntScrabble extends AbstractNumberScrabble implements IntBinaryScra
     public String twosComplement(String b){
         String bComplement= Complement(b);
         return nowIsTwoComplement(bComplement);
+    }
+
+    @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitIntScrabble(this, Sc);
     }
 }

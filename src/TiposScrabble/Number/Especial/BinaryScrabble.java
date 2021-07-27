@@ -3,6 +3,7 @@ package TiposScrabble.Number.Especial;
 import TiposScrabble.*;
 import TiposScrabble.Number.FloatScrabble;
 import TiposScrabble.Number.NumberScrabble;
+import Visitors.visitOperador;
 
 /**
  * Clase BinaryScrabble es un Scrabble con un
@@ -79,6 +80,11 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
     }
 
     @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitBinaryScrabble(this, Sc);
+    }
+
+    @Override
     public StringScrabble toStringSc() {
         return new StringScrabble(Bin);
     }
@@ -88,6 +94,12 @@ public class BinaryScrabble implements IntBinaryScrabble, LogicScrabble {
         String B=this.getBinary();
         int bit=this.toInt(B);
         return new IntScrabble(bit);
+    }
+
+    @Override
+    public Number getValue() {
+        IntScrabble Int=this.toIntSc();
+        return Int.getValue();
     }
 
     @Override

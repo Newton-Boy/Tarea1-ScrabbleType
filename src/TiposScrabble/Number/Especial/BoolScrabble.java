@@ -1,6 +1,8 @@
 package TiposScrabble.Number.Especial;
 
+import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
+import Visitors.visitOperador;
 
 /**
  * Clase BoolScrabble es un Scrabble con un
@@ -31,6 +33,12 @@ public class BoolScrabble implements LogicScrabble {
     public String toString() {
         return String.valueOf(this.getBool());
     }
+
+    @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitBoolScrabble(this, Sc);
+    }
+
     /**
      * Override del metodo equals para BoolScrabble
      * @param O

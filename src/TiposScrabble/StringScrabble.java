@@ -1,5 +1,7 @@
 package TiposScrabble;
 
+import Visitors.visitOperador;
+
 /**
  * Clase StringScrabble es un Scrabble con un
  * parametro Tipo String
@@ -33,6 +35,11 @@ public class StringScrabble implements AddScrabble{
     @Override
     public String toString(){
         return this.getString();
+    }
+
+    @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitStringScrabble(this, Sc);
     }
 
     @Override

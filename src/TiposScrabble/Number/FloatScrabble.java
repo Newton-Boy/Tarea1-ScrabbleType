@@ -5,6 +5,7 @@ import TiposScrabble.Number.Especial.BinaryScrabble;
 import TiposScrabble.Number.Especial.IntScrabble;
 import TiposScrabble.Scrabble;
 import TiposScrabble.StringScrabble;
+import Visitors.visitOperador;
 
 /**
  * Clase FloatScrabble es un Scrabble con un
@@ -78,5 +79,10 @@ public class FloatScrabble extends AbstractNumberScrabble {
     public FloatScrabble División(NumberScrabble Num) {
         FloatScrabble inverse= Num.Inverso();
         return this.Producto(inverse);
+    }
+
+    @Override
+    public void accept(visitOperador aOperador, Scrabble Sc) {
+        aOperador.visitFloatScrabble(this, Sc);
     }
 }
